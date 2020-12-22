@@ -1,8 +1,19 @@
-const { Client, MessageEmbed  } =  require('discord.js');
-// const client = new Client();
+const Commando = require('discord.js-commando')
+const { MessageEmbed } = require('discord.js');
 
-const botIcon = 'https://i.imgur.com/PGrtSUO_d.webp';
-const getHelp = new MessageEmbed()
+module.exports = class HelpCommand extends Commando.Command{
+	constructor(client){
+		super(client,{
+			name: 'help',
+			group: 'utility',
+			memberName: 'help',
+			description: 'Shows available commands'
+		})
+	}
+
+	async run(message){
+		const botIcon = 'https://i.imgur.com/PGrtSUO_d.webp';
+		const helpEmbed = new MessageEmbed()
 			.setColor('#0099ff')
 			.setTitle('All Commands')
 			// .setURL('https://discord.gg/')
@@ -22,15 +33,14 @@ const getHelp = new MessageEmbed()
 				
 			.setTimestamp()
 			.setFooter('Thanks for using Franny!', botIcon);
-
-
-
-module.exports = {
-	name: 'help',
-	description: 'Help command',
-	execute(message, args) {
-
-
-		message.channel.send(getHelp);
+			message.channel.send(helpEmbed);
+			console.log(message.channel.type);
 	}
-};
+
+}
+
+
+
+
+
+

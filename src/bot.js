@@ -1,64 +1,44 @@
 require('dotenv').config();
 
 const { readdirSync } = require('fs')
-const { Client, MessageEmbed, Collection  } =  require('discord.js');
-const client = new Client();
+const path = require('path')
+const Commando = require('discord.js-commando')
+const config = require("./config.json")
+const db = require("quick.db")
 const ytdl = require('ytdl-core');
-client.commands = new Collection();
-
-const PREFIX =  "f.";
-
-const commandFiles = readdirSync(`${__dirname}/commands`).filter(file => file.endsWith('.js'));
 
 
 
+let PREFIX =  "f.";
 
-client.on('ready',()=>{
+const client = new Commando.CommandoClient({
+	owner:'325386201697615882',
+	commandPrefix: config.default_prefix
+})
+
+
+client.on('ready', async()=>{
 	console.log(`${client.user.username} is up!`);
 	client.user.setActivity('f.help',{type: 'STREAMING'}).catch(console.error);
+
+
+
+	client.registry
+		.registerGroups([
+			['misc', 'Misc Commands'],
+			['moderation', 'Moderation Commands'],
+			['games','Game Commands'],
+			['utility', 'Utility Commands']
+		])
+
+		.registerCommandsIn(path.join(__dirname, 'commands'))
 });
 
 
 client.on('message', async (message)=>{
 	console.log(`[${message.author.tag}] : ${message.content}`);
-
-	for (const file of commandFiles) {
-		const command = require(`./commands/${file}`);
-		client.commands.set(command.name, command);
-	}
-
-
 	if(!message.content.startsWith(PREFIX) || message.author.bot) return;
-
-	if(message.content === "hi"){
-		message.channel.send("anjing.");
-	}
-
-	if(message.content.startsWith(PREFIX)){
-
-		const [CMD_NAME, ...args] = message.content
-		.trim()
-		.substring(PREFIX.length)
-		.split(/\s+/);
-
-
-		if(!client.commands.has(CMD_NAME)) return;
-
-		try{
-			client.commands.get(CMD_NAME).execute(message, args);
-		} catch (error){
-			console.log(error);
-			message.reply('Something went wrong.')
-		}
-
-
-		const checkId = ()=>{
-			if (args.length === 0)
-		        return message.reply('Please provide an ID');
-		};
-
-
-	}
+	if(message.channel.type ==="dm") return;	
 });
 
 
