@@ -27,7 +27,7 @@ const getHelp = new MessageEmbed()
 
 module.exports = {
 	name: 'help',
-	description: 'Help',
+	description: 'Help command',
 	execute(message, args) {
 
 

@@ -28,18 +28,6 @@ client.on('message', async (message)=>{
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 	if(!message.content.startsWith(PREFIX) || message.author.bot) return;
 
 	if(message.content === "hi"){
@@ -70,45 +58,9 @@ client.on('message', async (message)=>{
 		};
 
 
-		
-
-		const target = message.mentions.users.first();
-
-		 if(CMD_NAME === "kick"){
- 			if (args.length === 0) return message.reply('Mention the user please 🥺');
-				const member = message.guild.member(target);
-			
-			if(member){
-				member
-					.kick()
-					.then((member)=>message.channel.send(`${member} has been kicked <:pakyufrastio:756858103856627763>`))
-					.catch((err)=>message.channel.send());
-			} else {
-				message.channel.send('User not found');
-			}
-		} 
-
- 
-
-
 	}
 });
 
 
 
 client.login(process.env.DISCORDJS_BOT_TOKEN);
-
-
-
-
- // if (member) {
-		      //   member
-		      //     .kick()
-		      //     .then((member) => message.channel.send(`${member} was kicked.`))
-		      // } else {
-		      //   message.channel.send('User not found');
-		      // }
-
-		//       	if(CMD_NAME === "help"){
-		// 	message.channel.send('this bot has no feature lmao');
-		// }
