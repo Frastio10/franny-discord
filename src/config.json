@@ -1,4 +1,5 @@
 {
-	"default_prefix":"f."
-
+	"default_prefix":"f.",
+	"token":"NzcxMzU0OTYwMTE3NDk3ODY2.X5q6SQ.aKTVNdQZ4d77JcoNs-kVDMPBv7s",
+	"mongo_path": "mongodb://localhost:27017/Franny"
 }

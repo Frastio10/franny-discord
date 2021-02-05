@@ -1,4 +1,3 @@
-
 const Commando = require('discord.js-commando')
 
 module.exports = class KickCommand extends Commando.Command{
